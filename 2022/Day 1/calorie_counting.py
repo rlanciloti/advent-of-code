@@ -1,8 +1,9 @@
 """
-Calorie Counting: This is the first and second challenge of the Day 1 of the Advent of Code. (https://adventofcode.com/2022/day/1#part2)
+Calorie Counting: This is the first and second challenge of the Day 1 of the Advent of Code.
+(https://adventofcode.com/2022/day/1#part2)
 
 Objective (Challenge 1):
-	Given a list of calories that are contained in snacks carried by a group of elves, 
+	Given a list of calories that are contained in snacks carried by a group of elves,
 	report the total number of calories held by the elf with the most calories.
 
 Objective (Challenge 2):
@@ -36,6 +37,7 @@ Date of Creation: 12/1/2022
 """
 import os
 import argparse
+from typing import Tuple
 
 
 def _get_calories_for_each_elf(file: str) -> list:
@@ -46,14 +48,14 @@ def _get_calories_for_each_elf(file: str) -> list:
 	:return list: List with the total calories each elf is holding
 	"""
 	calorie_list = list()
-	
-	with open(file, "r") as f:
-		for line in f:
-			if not len(calorie_list) or (line == "\n" and calorie_list[-1] != 0):
+
+	with open(file, "r") as fptr:
+		for line in fptr:
+			if len(calorie_list) == 0 or (line == "\n" and calorie_list[-1] != 0):
 				calorie_list.append(0)
 			else:
 				calorie_list[-1] += int(line.strip("\n\r"))
-	
+
 	return calorie_list
 
 
@@ -62,7 +64,7 @@ def _validate_arguments(args: argparse.Namespace):
 	This function will validate the arguments provided and raise the proper errors
 	"""
 	if not os.path.exists(args.infile):
-		raise ValueError("The provided file does not exist")
+		raise ValueError(f"The provided file does not exist: {args.infile}")
 
 
 def _get_arguments(cmd_args: list = None) -> argparse.Namespace:
@@ -73,7 +75,7 @@ def _get_arguments(cmd_args: list = None) -> argparse.Namespace:
 	:return argparse.Namespace: Object containing the commandline arguments
 	"""
 	parser = argparse.ArgumentParser("Counting Calories of Elves")
-	
+
 	parser.add_argument(
 		"--infile", dest='infile', type=str, required=True,
 		help="Path to the input file containing the elves calories"
@@ -85,7 +87,7 @@ def _get_arguments(cmd_args: list = None) -> argparse.Namespace:
 	return args
 
 
-def main(cmd_args: list = None) -> tuple[int,int]:
+def main(cmd_args: list = None) -> Tuple[int, int]:
 	"""
 	Main function which will act as an entry point for this script. Returns a tuple
 	containing two values: (A, B)

@@ -1,0 +1,12 @@
+{
+	"python.testing.pytestArgs": [
+		"2022"
+	],
+	"python.testing.unittestEnabled": false,
+	"python.testing.pytestEnabled": true,
+	"python.analysis.exclude": [
+		"**/utilities/template_project",
+		"**/module.py",
+		"**/test_module.py",
+	]
+}
